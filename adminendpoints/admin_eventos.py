@@ -23,16 +23,17 @@ def _sp(nombre: str, params: tuple = ()):
             sql = f"EXEC {nombre} {placeholders}" if params else f"EXEC {nombre}"
             cursor.execute(sql, params)
 
+            rows = []
             if cursor.description:
                 cols = [c[0] for c in cursor.description]
-                return [dict(zip(cols, row)) for row in cursor.fetchall()]
+                rows = [dict(zip(cols, r)) for r in cursor.fetchall()]
 
-            conn.commit()
-            return [{"status": "SUCCESS"}]
+            conn.commit()  # ✅ SIEMPRE
+
+            return rows if rows else [{"status": "SUCCESS"}]
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 # ============================================================
 # LISTAR
@@ -104,7 +105,7 @@ def crear_evento(body: EventoCrear):
     res = rows[0]
     if res.get("status") == "ERROR":
         raise HTTPException(status_code=400, detail=res.get("mensaje"))
-
+    
     return res
 
 
