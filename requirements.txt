@@ -1,0 +1,18 @@
+# ── Servidor web ──────────────────────────────────────────────────
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# ── Validación de datos ───────────────────────────────────────────
+pydantic[email]==2.10.4
+
+# ── Base de datos (SQL Server) ────────────────────────────────────
+pyodbc==5.2.0
+SQLAlchemy==2.0.36
+
+# ── Scraping Facebook (corre 1 vez/día, no afecta requests normales)
+selenium==4.27.1
+webdriver-manager==4.0.2
+requests==2.32.3
+
+# ── Variables de entorno ──────────────────────────────────────────
+python-dotenv==1.0.1
